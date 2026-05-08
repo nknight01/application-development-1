@@ -1,9 +1,12 @@
 function calculateTotal(price, quantity) {
+  if (price < 0 || quantity < 0) {
+    throw new Error("Invalid input");
+  }
   return price * quantity;
 }
 
 function applyDiscount(total) {
-  const discount = 20; // fixed discount value
+  const discount = 20;
 
   if (total > 100) {
     return total - discount;
@@ -13,17 +16,14 @@ function applyDiscount(total) {
 
 function processOrder(price, quantity) {
   const total = calculateTotal(price, quantity);
-  const discounted = applyDiscount(total);
-  return discounted.toFixed(2);
+  const finalTotal = applyDiscount(total);
+  return finalTotal.toFixed(2);
 }
-
- 
 
 module.exports = {
   calculateTotal,
   applyDiscount,
   processOrder
 };
- 
 
-console.log(processOrder(25, 5));
+
