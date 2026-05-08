@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 
 const tasksController = require("../controllers/tasksController");
+
 const validateTask = require("../middleware/validateTask");
+const apiKeyAuth = require("../middleware/apiKeyAuth");
 
 // GET all tasks
 router.get("/", tasksController.getTasks);
@@ -10,13 +12,10 @@ router.get("/", tasksController.getTasks);
 // GET one task
 router.get("/:id", tasksController.getTaskById);
 
-// POST new task
-router.post("/", validateTask, tasksController.createTask);
+router.post("/", apiKeyAuth, validateTask, tasksController.createTask);
 
-// PATCH task
-router.patch("/:id", tasksController.updateTask);
+router.patch("/:id", apiKeyAuth, tasksController.updateTask);
 
-// DELETE task
-router.delete("/:id", tasksController.deleteTask);
+router.delete("/:id", apiKeyAuth, tasksController.deleteTask);
 
 module.exports = router;
